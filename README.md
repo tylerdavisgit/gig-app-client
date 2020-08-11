@@ -1,4 +1,3 @@
-
 # Project Overview
 
 <h2> Gig App </h2>
@@ -86,4 +85,4 @@ Gig is a React/Ruby-on-Rails application which allows independent contractors, s
 
 ## Additional Libraries/Tools
 
-SCSS, AuthO or Bcrypt(potnentially)
+SCSS, Bcrypt
