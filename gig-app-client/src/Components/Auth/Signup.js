@@ -33,9 +33,11 @@ export default function Signup(props) {
       )
       .then((res) => {
         console.log(res);
-        // setActiveUser.loggedInStatus("LOGGED_IN");
-        setActiveUser.user(res.data.user);
-        // props.history.push("/dashboard");
+        setActiveUser({
+          loggedInStatus: "LOGGED_IN",
+          user: res.data.user,
+        });
+        props.history.push("/dashboard");
 
         setInput({
           email: "",
