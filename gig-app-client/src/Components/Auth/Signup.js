@@ -37,7 +37,7 @@ export default function Signup(props) {
           loggedInStatus: "LOGGED_IN",
           user: res.data.user,
         });
-        props.history.push("/dashboard");
+        props.history.push("/month");
 
         setInput({
           email: "",

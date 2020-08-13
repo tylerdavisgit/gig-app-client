@@ -1,21 +1,19 @@
 import React, { useState, createContext, useEffect } from "react";
-import "./App.css";
-import Home from "./Components/Home";
+import "./App.scss";
 import axios from "axios";
-import Dashboard from "./Components/Dashboard";
 import { Switch, Route, withRouter } from "react-router-dom";
+
+import Home from "./Components/Home";
 import Signup from "./Components/Auth/Signup";
+import Login from "./Components/Auth/Login";
+import Month from "./Components/Month";
+import Dashboard from "./Components/Dashboard";
 
 export const DataContext = createContext();
 
 function App() {
-  const [activeUser, setActiveUser] = useState({
-    loggedInStatus: "NOT_LOGGED_IN",
-    user: {},
-  });
-
-  const checkLoginStatus = () => {
-    axios
+  const checkLoginStatus = async () => {
+    await axios
       .get("http://localhost:3000/logged_in", { withCredentials: true })
       .then((res) => {
         if (
@@ -35,6 +33,7 @@ function App() {
             user: {},
           });
         }
+        console.log("within app, within checkLoginStatus:", activeUser);
       })
       .catch((error) => {
         console.log("check login error", error);
@@ -45,6 +44,11 @@ function App() {
     checkLoginStatus();
   });
 
+  const [activeUser, setActiveUser] = useState({
+    loggedInStatus: "NOT_LOGGED_IN",
+    user: {},
+  });
+
   return (
     <div className="App">
       <Switch>
@@ -52,6 +56,8 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/month" component={Month} />
         </DataContext.Provider>
       </Switch>
     </div>
