@@ -68,6 +68,7 @@ const Body = styled.div`
 
 const Day = styled.div`
   width: 100%;
+  position: relative;
   height: 8vh;
   display: flex;
   align-items: center;
@@ -83,30 +84,31 @@ const Day = styled.div`
     margin-left: 20px;
     margin-bottom: 20px;
   }
+  p {
+    color: white;
+  }
 
   ${(props) =>
     props.isToday &&
     css`
       border: 2px solid black;
     `}
-
-  ${(props) =>
-    props.isSelected &&
-    css`
-      background-color: lightgrey;
-      color: black;
-    `}
 `;
 
 const Gig = styled.div`
-  width: 100%;
-  height: 8vh;
+  // position: absolute;
+  width: 10px;
+  height: 20px;
   display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: lightgrey;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 2px solid lightgray;
-  font-size: 14px;
+  margin-bottom: -20px;
+  // border: 2px solid lightgray;
+  font-size: 10px;
   z-index: 10000;
 `;
 
@@ -115,7 +117,7 @@ const Footer = styled.div`
   justify-content: space-between;
   padding: 15px;
   height: 20%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-top: auto;
 `;
 
@@ -125,6 +127,7 @@ const PrevButton = styled.div`
   height: 50px;
   width: 50px;
   border: 3px solid lightgray;
+  border-radius: 30px;
   div {
     margin-top: -14px;
   }
@@ -136,6 +139,7 @@ const NextButton = styled.div`
   height: 50px;
   width: 50px;
   border: 3px solid lightgray;
+  border-radius: 30px;
   div {
     margin-top: 2px;
   }
@@ -146,7 +150,34 @@ export default function Calendar() {
   // const activeUser = dataContext.activeUser;
 
   const gigs = dataContext.userGigs;
-  console.log(gigs[3]);
+  // console.log(gigs);
+
+  const dateParse = (gigs) => {
+    const newGigs = [];
+
+    gigs.forEach((gig) => {
+      newGigs.push({
+        client: gig.client,
+        client_contact: gig.client_contact,
+        created_at: gig.created_at,
+        date: gig.date.split("-").map((numStr) => parseInt(numStr)),
+        id: gig.id,
+        location: gig.location,
+        price: gig.price,
+        time: gig.time,
+        title: gig.title,
+        updated_at: gig.updated_at,
+        user_id: gig.id,
+      });
+    });
+    return newGigs;
+  };
+
+  let finalGigs = dateParse(gigs);
+
+  console.log("Final Gigs - ", finalGigs);
+
+  console.log(finalGigs[1]);
 
   const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const leapDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -174,10 +205,10 @@ export default function Calendar() {
   const [year, setYear] = useState(date.getFullYear());
   const [startDay, setStartDay] = useState(getStartDayOfMonth(date));
 
-  console.log(dateSelected);
-  console.log(dateSelected.getMonth(dateSelected) + 1);
-  console.log(dateSelected.getFullYear(dateSelected));
-  console.log(dateSelected.getDate(dateSelected));
+  // console.log(dateSelected);
+  // console.log(dateSelected.getMonth(dateSelected) + 1);
+  // console.log(dateSelected.getFullYear(dateSelected));
+  // console.log(dateSelected.getDate(dateSelected));
 
   useEffect(() => {
     setDay(date.getDate());
@@ -226,15 +257,29 @@ export default function Calendar() {
             .fill()
             .map((_, index) => {
               const d = index - (startDay - 1);
+              const date = new Date(year, month, d);
+              let datesList = [];
+              datesList.push(date);
+              let matchingDates = [];
+              finalGigs.map((gig) => {
+                if (
+                  gig.date[0] === date.getFullYear() &&
+                  gig.date[1] === date.getMonth() + 1 &&
+                  gig.date[2] === date.getDate()
+                ) {
+                  matchingDates.push(gig.price);
+                }
+              });
+              console.log(matchingDates);
               return (
                 <Day
                   key={index}
                   isToday={d === today.getDate()}
-                  isSelected={d === dateSelected}
                   onClick={() => setDateSelected(new Date(year, month, d))}
                 >
                   <div className="calendar-nums">
                     {d > 0 && d < 32 ? d : ""}
+                    <Gig>{matchingDates}</Gig>
                   </div>
                 </Day>
               );
