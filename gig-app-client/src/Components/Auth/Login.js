@@ -76,8 +76,6 @@ export default function Login(props) {
           <h1>Gig</h1>
           <h2> Login</h2>
           <h5>Or click sign up to get started</h5>
-          <p>Logged in status: {activeUser.loggedInStatus}</p>
-          <p>Logged in as: {activeUser.user.email}</p>
           <div>
             <form onSubmit={handleSubmit}>
               <input

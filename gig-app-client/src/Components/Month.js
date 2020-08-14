@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
+import { DataContext } from "../App";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -73,6 +74,15 @@ const Day = styled.div`
   justify-content: center;
   cursor: pointer;
   border: 2px solid lightgray;
+  font-size: 14px;
+  .days-of-week {
+    font-size: 20px;
+  }
+  .calendar-nums {
+    font-size: 8px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
 
   ${(props) =>
     props.isToday &&
@@ -80,7 +90,24 @@ const Day = styled.div`
       border: 2px solid black;
     `}
 
-  ${(props) => props.isSelected && css``}
+  ${(props) =>
+    props.isSelected &&
+    css`
+      background-color: lightgrey;
+      color: black;
+    `}
+`;
+
+const Gig = styled.div`
+  width: 100%;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid lightgray;
+  font-size: 14px;
+  z-index: 10000;
 `;
 
 const Footer = styled.div`
@@ -115,18 +142,24 @@ const NextButton = styled.div`
 `;
 
 export default function Calendar() {
+  const dataContext = useContext(DataContext);
+  // const activeUser = dataContext.activeUser;
+
+  const gigs = dataContext.userGigs;
+  console.log(gigs[3]);
+
   const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const leapDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
-    "January",
-    "February",
+    "Jan",
+    "Feb",
     "March",
     "April",
     "May",
     "June",
     "July",
-    "August",
+    "Aug",
     "Sept",
     "Oct",
     "Nov",
@@ -135,10 +168,16 @@ export default function Calendar() {
 
   const today = new Date();
   const [date, setDate] = useState(today);
+  const [dateSelected, setDateSelected] = useState(today);
   const [day, setDay] = useState(date.getDate());
   const [month, setMonth] = useState(date.getMonth());
   const [year, setYear] = useState(date.getFullYear());
   const [startDay, setStartDay] = useState(getStartDayOfMonth(date));
+
+  console.log(dateSelected);
+  console.log(dateSelected.getMonth(dateSelected) + 1);
+  console.log(dateSelected.getFullYear(dateSelected));
+  console.log(dateSelected.getDate(dateSelected));
 
   useEffect(() => {
     setDay(date.getDate());
@@ -150,8 +189,6 @@ export default function Calendar() {
   function getStartDayOfMonth(date) {
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
   }
-
-  console.log(getStartDayOfMonth(date));
 
   function isLeapYear(year) {
     return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
@@ -182,22 +219,23 @@ export default function Calendar() {
         <Body>
           {daysOfWeek.map((d) => (
             <Day key={d}>
-              <strong>{d}</strong>
+              <p className="days-of-week">{d}</p>
             </Day>
           ))}
-          {Array(monthDays[month] + (startDay - 1))
-            .fill(null)
+          {Array(monthDays[month] + startDay)
+            .fill()
             .map((_, index) => {
-              const d = index - (startDay - 2);
-
+              const d = index - (startDay - 1);
               return (
                 <Day
                   key={index}
                   isToday={d === today.getDate()}
-                  isSelected={d === day}
-                  onClick={() => setDate(new Date(year, month, d))}
+                  isSelected={d === dateSelected}
+                  onClick={() => setDateSelected(new Date(year, month, d))}
                 >
-                  {d > 0 ? d : ""}
+                  <div className="calendar-nums">
+                    {d > 0 && d < 32 ? d : ""}
+                  </div>
                 </Day>
               );
             })}

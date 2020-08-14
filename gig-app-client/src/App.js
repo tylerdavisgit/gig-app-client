@@ -24,6 +24,7 @@ function App() {
             loggedInStatus: "LOGGED_IN",
             user: res.data.user,
           });
+          setUserGigs(res.data.user.gigs);
         } else if (
           !res.data.logged_in &&
           activeUser.loggedInStatus === "LOGGED_IN"
@@ -49,10 +50,12 @@ function App() {
     user: {},
   });
 
+  const [userGigs, setUserGigs] = useState([]);
+
   return (
     <div className="App">
       <Switch>
-        <DataContext.Provider value={{ activeUser, setActiveUser }}>
+        <DataContext.Provider value={{ activeUser, setActiveUser, userGigs }}>
           <Route exact path="/" component={Home} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/signup" component={Signup} />
