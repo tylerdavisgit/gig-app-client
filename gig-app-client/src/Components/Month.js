@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
   justify-items: center;
 `;
 
@@ -52,9 +53,11 @@ const Header = styled.div`
 
 const CalendarWrapper = styled.div`
   width: 100%;
+  max-width: 900px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: auto;
 `;
 
 const Body = styled.div`
@@ -64,6 +67,7 @@ const Body = styled.div`
   grid-gap: 1%;
   justify-content: center;
   align-items: center;
+  margin: auto;
 `;
 
 const Day = styled.div`
@@ -80,9 +84,9 @@ const Day = styled.div`
     font-size: 20px;
   }
   .calendar-nums {
-    font-size: 8px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+    font-size: 1em;
+    margin-right: -20px;
+    margin-top: -35px;
     color: grey;
   }
   p {
@@ -98,7 +102,7 @@ const Day = styled.div`
 
 const Gig = styled.div`
   position: absolute;
-  top: 20px;
+  top: 25px;
   left: 0;
   width: 100%;
   opacity: 0.8;
@@ -108,9 +112,10 @@ const Gig = styled.div`
   color: black;
   cursor: pointer;
   border-radius: 2px;
-  font-size: 6px;
+  font-size: 1em;
   z-index: 10000;
   background-color: lightgrey;
+  font-size: 0.6em;
   .gig-title {
     display: flex;
     flex-wrap: no-wrap;
