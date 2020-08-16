@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   min-height: 100vh;
   width: 100vw;
   box-shadow: 2px 2px 2px #eee;
-  background-color: black;
+  background-image: radial-gradient(ellipse, black, rgb(25, 25, 25));
   color: lightgrey;
   font-family: helvetica, sans-serif;
   display: flex;
@@ -85,8 +85,8 @@ const Day = styled.div`
   }
   .calendar-nums {
     font-size: 1em;
-    margin-right: -20px;
-    margin-top: -35px;
+    margin-right: -45%;
+    margin-top: -40%;
     color: grey;
   }
   p {
@@ -102,7 +102,7 @@ const Day = styled.div`
 
 const Gig = styled.div`
   position: absolute;
-  top: 25px;
+  top: 33%;
   left: 0;
   width: 100%;
   opacity: 0.8;
@@ -116,6 +116,7 @@ const Gig = styled.div`
   z-index: 10000;
   background-color: lightgrey;
   font-size: 0.6em;
+  overflow: hidden;
   .gig-title {
     display: flex;
     flex-wrap: no-wrap;
