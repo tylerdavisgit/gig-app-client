@@ -98,17 +98,19 @@ const Day = styled.div`
 
 const Gig = styled.div`
   position: absolute;
-  top: 15px;
-  left: 3px;
-  display: flex;
-  flex-direction: column;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  opacity: 0.8;
   font-weight: bold;
   text-shadow: 1px 0.5px 0.5px darkgrey;
   text-align: left;
-  color: lightgrey;
+  color: black;
   cursor: pointer;
-  font-size: 8px;
+  border-radius: 2px;
+  font-size: 6px;
   z-index: 10000;
+  background-color: lightgrey;
   .gig-title {
     display: flex;
     flex-wrap: no-wrap;
@@ -154,6 +156,8 @@ export default function Calendar() {
 
   const gigs = dataContext.userGigs;
 
+  console.log(gigs);
+
   const dateParse = (gigs) => {
     const newGigs = [];
 
@@ -169,13 +173,15 @@ export default function Calendar() {
         time: gig.time,
         title: gig.title,
         updated_at: gig.updated_at,
-        user_id: gig.id,
+        user_id: gig.user_id,
       });
     });
     return newGigs;
   };
 
   let finalGigs = dateParse(gigs);
+
+  console.log(finalGigs);
 
   const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const leapDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -188,7 +194,7 @@ export default function Calendar() {
     "May",
     "June",
     "July",
-    "Aug",
+    "August",
     "Sept",
     "Oct",
     "Nov",
@@ -214,9 +220,7 @@ export default function Calendar() {
 
   const getMonthlyTotal = (finalGigs) => {
     let output = 0;
-    let i = 0;
-    for (i = 0; i < finalGigs.length; i += 1) {
-      console.log(output);
+    for (let i = 0; i < finalGigs.length; i += 1) {
       if (
         finalGigs[i].date[1] === date.getMonth() + 1 &&
         finalGigs[i].date[0] === date.getFullYear()
@@ -242,7 +246,7 @@ export default function Calendar() {
   return (
     <Wrapper>
       <Header>
-        <Link to="/dashboard">+</Link>
+        <Link>+</Link>
         <div>
           <div id="header-month">
             {months[month]} {year}
@@ -272,35 +276,44 @@ export default function Calendar() {
               const date = new Date(year, month, d);
               let matchingDatesPrice = [];
               let matchingDatesTitle = [];
-
+              let matchingDatesId = [];
               finalGigs.map((gig) => {
                 if (
                   gig.date[2] === date.getDate() &&
                   gig.date[1] === date.getMonth() + 1 &&
                   gig.date[0] === date.getFullYear()
                 ) {
-                  matchingDatesPrice.push(gig.price);
+                  matchingDatesPrice.push("$" + gig.price);
                   matchingDatesTitle.push(gig.title);
+                  matchingDatesId.push(gig.id);
                 }
               });
               return (
-                <Day
-                  key={index}
-                  isToday={d === today.getDate()}
-                  onClick={() => setDateSelected(new Date(year, month, d))}
-                >
-                  <div className="calendar-nums">
-                    {d > 0 && d < 32 ? d : ""}
-                    <Gig>
-                      <div className="gig-title">{matchingDatesTitle}</div>
-                      <div className="gig-price">{matchingDatesPrice}</div>
-                    </Gig>
-                  </div>
-                </Day>
+                <>
+                  <Day
+                    key={index}
+                    isToday={d === today.getDate()}
+                    onClick={() => setDateSelected(new Date(year, month, d))}
+                  >
+                    <div className="calendar-nums">
+                      {d > 0 && d < 32 ? d : ""}
+
+                      {matchingDatesId ? (
+                        <Gig value={matchingDatesId}>
+                          <div className="gig-title">{matchingDatesTitle}</div>
+                          <div className="gig-price">{matchingDatesPrice}</div>
+                        </Gig>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </Day>
+                </>
               );
             })}
         </Body>
       </CalendarWrapper>
+
       <Footer>
         <PrevButton
           id="prev-month"

@@ -1,0 +1,63 @@
+#dash-wrapper {
+  background-color: black;
+  color: lightgray;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100vw;
+  font-family: helvetica, sans-serif;
+  #dash-header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 2px solid lightgray;
+    h1 {
+      font-size: 30px;
+    }
+  }
+
+  #burger {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5px;
+
+    .burger-span {
+      width: 30px;
+      height: 2px;
+      border: 2px solid lightgrey;
+      background-color: lightgrey;
+      margin-top: 5px;
+    }
+  }
+  #dash-today {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+  #dash-year {
+    margin-top: 10px;
+    h3 {
+      font-size: 70px;
+      margin-top: -15px;
+    }
+  }
+  #dash-logged {
+    display: flex;
+    flex-direction: column;
+    h5 {
+      margin-top: 5px;
+    }
+  }
+  button {
+    width: 90px;
+    height: 30px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
