@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { DataContext } from "../../App";
 import apiUrl from "../../apiConfig";
+import "./Login.scss";
 
 export default function Login(props) {
   const dataContext = useContext(DataContext);
@@ -72,13 +73,13 @@ export default function Login(props) {
     return <Redirect to="/month" />;
   } else {
     return (
-      <div>
+      <div id="login-wrapper">
         <div>
-          <h1>Gig</h1>
+          <h1>GIG</h1>
           <h2> Login</h2>
           <h5>Or click sign up to get started</h5>
           <div>
-            <form onSubmit={handleSubmit}>
+            <form id="login-form" onSubmit={handleSubmit}>
               <input
                 onChange={handleChange}
                 type="email"
@@ -97,12 +98,10 @@ export default function Login(props) {
                 required
               />
               <button type="submit">Login</button>
-              <button onClick={handleLogout}>Logout</button>
             </form>
           </div>
-
-          <Link to="/signup">Sign Up</Link>
         </div>
+        <Link to="/signup">Sign Up</Link>
       </div>
     );
   }

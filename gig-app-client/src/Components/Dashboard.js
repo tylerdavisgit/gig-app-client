@@ -81,7 +81,11 @@ export default function Dashboard(props) {
   return (
     <div id="dash-wrapper">
       <div id="dash-header">
-        <h1>Gig Dashboard</h1>
+        <div id="header-text">
+          <h1>GIG</h1>
+          <h3>DASHBOARD</h3>
+        </div>
+
         <Link to="/month">
           <div id="burger">
             <span className="burger-span" />

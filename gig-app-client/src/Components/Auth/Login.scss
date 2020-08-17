@@ -1,0 +1,72 @@
+@font-face {
+  font-family: Formula Condensed;
+  src: url(/library/Fonts/futura.otf) format("truetype");
+}
+
+@keyframes transitionIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes transitionOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+#login-wrapper {
+  font-family: Futura;
+  background-image: radial-gradient(rgb(78, 29, 29), rgb(25, 25, 25));
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100vw;
+  margin: auto;
+
+  h1 {
+    font-size: 70px;
+    margin-top: 80px;
+    margin-bottom: 15px;
+  }
+  #login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input {
+      height: 35px;
+      margin-bottom: 5px;
+      border-radius: 35px;
+      font-family: futura;
+      font-size: 20px;
+      padding-left: 10px;
+    }
+    button {
+      height: 40px;
+      margin-bottom: 5px;
+      border-radius: 35px;
+      font-family: futura;
+      font-size: 20px;
+      padding-left: 10px;
+      background-color: black;
+      color: white;
+      border: 2px solid white;
+      width: 120px;
+      margin-top: 20px;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+}

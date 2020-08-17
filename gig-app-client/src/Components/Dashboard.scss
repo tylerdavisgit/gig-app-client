@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Formula Condensed;
+  src: url(/library/Fonts/futura.otf) format("truetype");
+}
+
 @keyframes transitionIn {
   from {
     opacity: 0;
@@ -17,14 +22,14 @@
 }
 
 #dash-wrapper {
-  background-image: radial-gradient(ellipse, black, rgb(25, 25, 25));
+  font-family: Futura;
+  background-image: radial-gradient(rgb(78, 29, 29), rgb(25, 25, 25));
   color: lightgray;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-width: 100vw;
-  font-family: helvetica, sans-serif;
   #dash-header {
     display: flex;
     width: 100%;
@@ -32,8 +37,15 @@
     align-items: center;
     justify-content: space-around;
     border-bottom: 2px solid lightgray;
-    h1 {
-      font-size: 30px;
+    #header-text {
+      h1 {
+        font-size: 50px;
+        margin-top: 5px;
+      }
+      h3 {
+        font-size: 15px;
+        margin-top: -45px;
+      }
     }
   }
 
@@ -55,9 +67,17 @@
     align-items: center;
     justify-content: space-between;
     text-align: left;
+    margin-top: 40px;
+    h3 {
+      margin-left: 10px;
+    }
   }
   #dash-year {
-    margin-top: 10px;
+    margin-top: 5px;
+    h2 {
+      font-family: futura;
+      font-style: italic;
+    }
     h3 {
       font-size: 70px;
       margin-top: -15px;
@@ -66,6 +86,7 @@
   #dash-logged {
     display: flex;
     flex-direction: column;
+    margin-top: -30px;
     h5 {
       margin-top: 5px;
     }
@@ -77,5 +98,6 @@
     border: none;
     font-size: 16px;
     font-weight: bold;
+    font-family: futura;
   }
 }

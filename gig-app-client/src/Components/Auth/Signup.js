@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { DataContext } from "../../App";
 import axios from "axios";
 import apiUrl from "../../apiConfig";
+import "./Signup.scss";
 
 export default function Signup(props) {
   const dataContext = useContext(DataContext);
@@ -59,9 +60,10 @@ export default function Signup(props) {
   };
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+    <div id="signup-wrapper">
+      <h1>GIG</h1>
+      <h2>Sign Up</h2>
+      <form id="signup-form" onSubmit={handleSubmit}>
         <input
           onChange={handleChange}
           type="email"
@@ -87,9 +89,9 @@ export default function Signup(props) {
           value={input.password_confirmation}
           required
         />
-        <button type="submit">Sign Up!</button>
-        <Link to="/">Cancel</Link>
+        <button type="submit">Sign Up</button>
       </form>
+      <Link to="/">Cancel</Link>
     </div>
   );
 }

@@ -8,9 +8,9 @@ const Wrapper = styled.div`
   min-height: 100vh;
   width: 100vw;
   box-shadow: 2px 2px 2px #eee;
-  background-image: radial-gradient(ellipse, black, rgb(25, 25, 25));
+  background-image: radial-gradient(ellipse, rgb(78, 29, 29), rgb(25, 25, 25));
   color: lightgrey;
-  font-family: helvetica, sans-serif;
+  font-family: futura;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -87,10 +87,10 @@ const Day = styled.div`
     font-size: 1em;
     margin-right: -45%;
     margin-top: -40%;
-    color: grey;
+    color: white;
   }
   p {
-    color: white;
+    color: lightgrey;
   }
 
   ${(props) =>
@@ -141,7 +141,7 @@ const PrevButton = styled.div`
   border: 3px solid lightgray;
   border-radius: 30px;
   div {
-    margin-top: -14px;
+    margin-top: -24px;
   }
 `;
 
@@ -159,6 +159,8 @@ const NextButton = styled.div`
 
 export default function Calendar() {
   const dataContext = useContext(DataContext);
+
+  console.log(dataContext);
 
   const gigs = dataContext.userGigs;
 
