@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import { DataContext } from "../../App";
+import apiUrl from "../../apiConfig";
 
 export default function Login(props) {
   const dataContext = useContext(DataContext);
@@ -16,7 +17,7 @@ export default function Login(props) {
 
   const handleLogout = async () => {
     await axios
-      .delete("http://localhost:3000/logout", { withCredentials: true })
+      .delete(`${apiUrl}/logout`, { withCredentials: true })
       .then((res) => {
         console.log("LOGGED OUT");
       })
@@ -33,7 +34,7 @@ export default function Login(props) {
     event.preventDefault();
     axios
       .post(
-        "http://localhost:3000/sessions",
+        `${apiUrl}/sessions`,
         {
           user: {
             email: input.email,

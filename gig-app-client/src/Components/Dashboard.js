@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { DataContext } from "../App";
 import axios from "axios";
 import "./Dashboard.scss";
+import apiUrl from "../apiConfig";
 
 export default function Dashboard(props) {
   const dataContext = useContext(DataContext);
@@ -56,7 +57,7 @@ export default function Dashboard(props) {
 
   const handleLogout = async () => {
     await axios
-      .delete("http://localhost:3000/logout", { withCredentials: true })
+      .delete(`${apiUrl}/logout`, { withCredentials: true })
       .then((res) => {
         console.log("LOGGED OUT");
         setActiveUser({

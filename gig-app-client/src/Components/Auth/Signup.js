@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { DataContext } from "../../App";
 import axios from "axios";
+import apiUrl from "../../apiConfig";
 
 export default function Signup(props) {
   const dataContext = useContext(DataContext);
@@ -21,7 +22,7 @@ export default function Signup(props) {
     event.preventDefault();
     axios
       .post(
-        "http://localhost:3000/registrations",
+        `${apiUrl}/registrations`,
         {
           user: {
             email: input.email,

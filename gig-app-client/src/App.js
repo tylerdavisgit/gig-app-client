@@ -8,13 +8,14 @@ import Signup from "./Components/Auth/Signup";
 import Login from "./Components/Auth/Login";
 import Month from "./Components/Month";
 import Dashboard from "./Components/Dashboard";
+import apiUrl from "./apiConfig";
 
 export const DataContext = createContext();
 
 function App() {
   const checkLoginStatus = async () => {
     await axios
-      .get("http://localhost:3000/logged_in", { withCredentials: true })
+      .get(`${apiUrl}/logged_in`, { withCredentials: true })
       .then((res) => {
         if (
           res.data.logged_in &&
