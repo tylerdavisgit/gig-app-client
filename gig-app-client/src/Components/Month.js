@@ -86,7 +86,7 @@ const Day = styled.div`
   .calendar-nums {
     font-size: 1em;
     margin-right: -45%;
-    margin-top: -40%;
+    margin-top: -30%;
     color: white;
   }
   p {

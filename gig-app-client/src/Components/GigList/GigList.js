@@ -60,7 +60,11 @@ export default function GigList(props) {
     <div id="giglist-wrapper">
       <div id="gigs-list-header">
         <h1>YOUR GIGS</h1>
-        <Link to="month">CALENDAR</Link>
+        <div id="gig-list-links">
+          <Link to="month">CALENDAR</Link>
+          <Link to="/gigs/create_gig/">+</Link>
+        </div>
+
         <h3 id="gigs-sub-header">Gig Income Booked:</h3>
         <h2>${yearlyTotal}</h2>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import GigForm from "../GigForm/GigForm";
 import axios from "axios";
 import { DataContext } from "../../App";

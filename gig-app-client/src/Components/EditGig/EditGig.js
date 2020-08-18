@@ -106,7 +106,7 @@ export default function EditGig(props) {
         handleGigSubmit={handleGigSubmit}
       />
       <div id="edit-footer">
-        <Link to="/gigs">Cancel</Link>
+        <Link to="/month">Cancel</Link>
         <button onClick={handleGigDelete}>Delete Gig</button>
       </div>
     </div>

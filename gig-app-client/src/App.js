@@ -47,7 +47,7 @@ function App() {
 
   useEffect(() => {
     checkLoginStatus();
-  }, []);
+  });
 
   const [activeUser, setActiveUser] = useState({
     loggedInStatus: "NOT_LOGGED_IN",
