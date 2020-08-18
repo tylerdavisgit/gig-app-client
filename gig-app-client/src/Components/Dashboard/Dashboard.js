@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { DataContext } from "../App";
+import { DataContext } from "../../App";
 import axios from "axios";
 import "./Dashboard.scss";
-import apiUrl from "../apiConfig";
+import apiUrl from "../../apiConfig";
 
 export default function Dashboard(props) {
   const dataContext = useContext(DataContext);
   const activeUser = dataContext.activeUser.user;
   const setActiveUser = dataContext.setActiveUser;
   let email = activeUser.email;
+  console.log(activeUser);
+  console.log(email);
 
   const today = new Date();
 
@@ -101,10 +103,12 @@ export default function Dashboard(props) {
       <div id="dash-year">
         <h2>Gig Income This Year:</h2>
         <h3>${yearlyTotal}</h3>
+        <Link to="/gigs">View all Gigs</Link>
       </div>
+
       <div id="dash-logged">
         <h5>Logged in with: </h5>
-        <h5>{email} </h5>
+        <h5>{email}</h5>
       </div>
 
       <button onClick={handleLogout}>Logout</button>

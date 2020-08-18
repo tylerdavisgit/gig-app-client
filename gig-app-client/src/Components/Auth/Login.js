@@ -16,21 +16,6 @@ export default function Login(props) {
     LoginErrors: "",
   });
 
-  const handleLogout = async () => {
-    await axios
-      .delete(`${apiUrl}/logout`, { withCredentials: true })
-      .then((res) => {
-        console.log("LOGGED OUT");
-      })
-      .catch((error) => {
-        console.log("logout error", error);
-      });
-    setActiveUser({
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {},
-    });
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     axios

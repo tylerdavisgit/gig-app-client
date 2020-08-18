@@ -1,0 +1,77 @@
+@font-face {
+  font-family: Formula Condensed;
+  src: url(/library/Fonts/futura.otf) format("truetype");
+}
+
+@keyframes transitionIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes transitionOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+#edit-gig-wrapper {
+  font-family: Futura;
+  background-image: radial-gradient(rgb(78, 29, 29), rgb(25, 25, 25));
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100vw;
+  h1 {
+    font-size: 40px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    input {
+      height: 35px;
+      border-radius: 35px;
+      font-family: futura;
+      font-size: 20px;
+      padding-left: 10px;
+    }
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
+    #submit {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+  }
+  #edit-footer {
+    display: flex;
+    width: 200px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    a {
+      color: white;
+      text-decoration: none;
+    }
+    button {
+      height: 40px;
+      font-weight: bold;
+      color: white;
+      background-color: black;
+      border: 2px solid white;
+      border-radius: 35px;
+      width: 90px;
+    }
+  }
+}

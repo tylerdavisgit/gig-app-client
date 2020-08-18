@@ -1,0 +1,133 @@
+* {
+  padding: 0;
+  //   border: 2px solid white;
+}
+
+@font-face {
+  font-family: Formula Condensed;
+  src: url(/library/Fonts/futura.otf) format("truetype");
+}
+
+@keyframes transitionIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes transitionOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+html {
+  font-size: 12px;
+}
+@media screen and (min-width: 320px) {
+  html {
+    font-size: calc(12px + 6 * ((100vw - 320px) / 680));
+  }
+}
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: 30px;
+  }
+}
+
+#giglist-wrapper {
+  font-family: Futura;
+  background-image: radial-gradient(rgb(78, 29, 29), rgb(25, 25, 25));
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  margin: 0;
+  text-align: center;
+  #gigs-list-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    a {
+      font-size: 12px;
+      text-decoration: none;
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      border: 2px solid white;
+      border-radius: 35px;
+      height: 30px;
+      width: 100px;
+      padding-top: 15px;
+    }
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+  h2 {
+    margin-top: 2px;
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+  #gigs-sub-header {
+    margin-bottom: 2px;
+  }
+  #gig-list-ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: left;
+  }
+  .gig-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 80%;
+    border: 2px solid white;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    padding-top: 15px;
+    box-shadow: 3px 3px 3px black;
+    align-items: center;
+    a {
+      width: 250px;
+      text-decoration: none;
+      color: grey;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      height: 60px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .li-section {
+      display: flex;
+      width: 70%;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-left: 10%;
+      padding-right: 10%;
+      align-items: center;
+      margin-bottom: -2%;
+      margin-top: -2%;
+    }
+  }
+  li {
+    list-style: none;
+  }
+}

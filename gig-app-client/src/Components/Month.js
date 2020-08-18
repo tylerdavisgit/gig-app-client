@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   width: 100vw;
   box-shadow: 2px 2px 2px #eee;
   background-image: radial-gradient(ellipse, rgb(78, 29, 29), rgb(25, 25, 25));
-  color: lightgrey;
+  color: white;
   font-family: futura;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@ const Header = styled.div`
     margin-top: 5px;
   }
   a {
-    color: lightgrey;
+    color: white;
     text-decoration: none;
     font-size: 40px;
   }
@@ -44,8 +44,8 @@ const Header = styled.div`
     .burger-span {
       width: 30px;
       height: 2px;
-      border: 2px solid lightgrey;
-      background-color: lightgrey;
+      border: 2px solid white;
+      background-color: white;
       margin-top: 5px;
     }
   }
@@ -90,7 +90,7 @@ const Day = styled.div`
     color: white;
   }
   p {
-    color: lightgrey;
+    color: white;
   }
 
   ${(props) =>
@@ -126,11 +126,21 @@ const Gig = styled.div`
 
 const Footer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 15px;
   height: 20%;
   margin-bottom: 10px;
   margin-top: auto;
+  a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    border: 2px solid white;
+    background-color: black;
+    border-radius: 35px;
+    width: 100px;
+    padding-top: 12px;
+  }
 `;
 
 const PrevButton = styled.div`
@@ -138,7 +148,7 @@ const PrevButton = styled.div`
   font-size: 60px;
   height: 50px;
   width: 50px;
-  border: 3px solid lightgray;
+  border: 3px solid white;
   border-radius: 30px;
   div {
     margin-top: -24px;
@@ -150,14 +160,14 @@ const NextButton = styled.div`
   font-size: 35px;
   height: 50px;
   width: 50px;
-  border: 3px solid lightgray;
+  border: 3px solid white;
   border-radius: 30px;
   div {
     margin-top: 2px;
   }
 `;
 
-export default function Calendar() {
+export default function Month() {
   const dataContext = useContext(DataContext);
 
   console.log(dataContext);
@@ -211,7 +221,6 @@ export default function Calendar() {
 
   const today = new Date();
   const [date, setDate] = useState(today);
-  const [dateSelected, setDateSelected] = useState(today);
   const [day, setDay] = useState(date.getDate());
   const [month, setMonth] = useState(date.getMonth());
   const [year, setYear] = useState(date.getFullYear());
@@ -224,22 +233,23 @@ export default function Calendar() {
     setStartDay(getStartDayOfMonth(date));
   }, [date]);
 
-  let monthlyTotal = 0;
-
   const getMonthlyTotal = (finalGigs) => {
-    let output = 0;
+    let monthlyTotal = 0;
     for (let i = 0; i < finalGigs.length; i += 1) {
+      console.log(finalGigs[i]);
+
       if (
-        finalGigs[i].date[1] === date.getMonth() + 1 &&
-        finalGigs[i].date[0] === date.getFullYear()
+        finalGigs[i].date[0] === date.getFullYear() &&
+        finalGigs[i].date[1] === date.getMonth() + 1
       ) {
-        monthlyTotal = output + finalGigs[i].price;
+        monthlyTotal = monthlyTotal + finalGigs[i].price;
+        console.log(monthlyTotal);
       }
     }
     return monthlyTotal;
   };
 
-  getMonthlyTotal(finalGigs);
+  let monthlyTotal = getMonthlyTotal(finalGigs);
 
   function getStartDayOfMonth(date) {
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
@@ -254,7 +264,7 @@ export default function Calendar() {
   return (
     <Wrapper>
       <Header>
-        <Link>+</Link>
+        <Link to="/gigs/create_gig">+</Link>
         <div>
           <div id="header-month">
             {months[month]} {year}
@@ -296,21 +306,25 @@ export default function Calendar() {
                   matchingDatesId.push(gig.id);
                 }
               });
+              let url = `/gigs/edit_gig/${matchingDatesId}`;
+
               return (
                 <>
-                  <Day
-                    key={index}
-                    isToday={d === today.getDate()}
-                    onClick={() => setDateSelected(new Date(year, month, d))}
-                  >
+                  <Day key={index} isToday={d === today.getDate()}>
                     <div className="calendar-nums">
                       {d > 0 && d < 32 ? d : ""}
 
                       {matchingDatesId ? (
-                        <Gig value={matchingDatesId}>
-                          <div className="gig-title">{matchingDatesTitle}</div>
-                          <div className="gig-price">{matchingDatesPrice}</div>
-                        </Gig>
+                        <Link to={url}>
+                          <Gig value={matchingDatesId}>
+                            <div className="gig-title">
+                              {matchingDatesTitle}
+                            </div>
+                            <div className="gig-price">
+                              {matchingDatesPrice}
+                            </div>
+                          </Gig>
+                        </Link>
                       ) : (
                         ""
                       )}
@@ -329,6 +343,8 @@ export default function Calendar() {
         >
           <div>-</div>
         </PrevButton>
+
+        <Link to="/gigs">All Gigs</Link>
 
         <NextButton
           id="next-month"
