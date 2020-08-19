@@ -7,10 +7,7 @@ import "./Signup.scss";
 
 export default function Signup(props) {
   const dataContext = useContext(DataContext);
-  const activeUser = dataContext.activeUser;
   const setActiveUser = dataContext.setActiveUser;
-  console.log(activeUser.loggedInStatus);
-  console.log(activeUser.user);
 
   const [input, setInput] = useState({
     email: "",
@@ -34,7 +31,6 @@ export default function Signup(props) {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res);
         setActiveUser({
           loggedInStatus: "LOGGED_IN",
           user: res.data.user,
@@ -52,7 +48,6 @@ export default function Signup(props) {
   };
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setInput({
       ...input,
       [event.target.name]: event.target.value,

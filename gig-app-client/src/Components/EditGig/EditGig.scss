@@ -32,10 +32,12 @@
   min-width: 100vw;
   h1 {
     font-size: 40px;
+    padding-top: 30px;
   }
   form {
     display: flex;
     flex-direction: column;
+    animation: transitionIn 1.5s;
     input {
       height: 35px;
       border-radius: 35px;
@@ -55,7 +57,7 @@
   }
   #edit-footer {
     display: flex;
-    width: 200px;
+    width: 250px;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
@@ -63,15 +65,31 @@
     a {
       color: white;
       text-decoration: none;
+      background-color: black;
+      border-radius: 35px;
+      width: 40%;
+      height: 35px;
+      border: 2px solid white;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     button {
-      height: 40px;
-      font-weight: bold;
       color: white;
+      text-decoration: none;
+      padding: 11px;
       background-color: black;
-      border: 2px solid white;
       border-radius: 35px;
-      width: 90px;
+      width: 40%;
+      height: 40px;
+      border: 2px solid white;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

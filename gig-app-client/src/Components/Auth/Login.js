@@ -9,6 +9,7 @@ export default function Login(props) {
   const dataContext = useContext(DataContext);
   const activeUser = dataContext.activeUser;
   const setActiveUser = dataContext.setActiveUser;
+  const setUserGigs = dataContext.setUserGigs;
 
   const [input, setInput] = useState({
     email: "",
@@ -30,33 +31,31 @@ export default function Login(props) {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log("res from login - ", res);
         setActiveUser({
           loggedInStatus: "LOGGED_IN",
           user: res.data.user,
         });
+        const reloadGigs = async () => {
+          await axios
+            .get(`${apiUrl}/users/${res.data.user.id}/gigs`)
+            .then((res) => {
+              setUserGigs(res.data);
+            });
+        };
+        reloadGigs();
         props.history.push("/month");
-
-        setInput({
-          email: "",
-          password: "",
-          LoginErrors: "",
-        });
       })
       .catch(console.error);
   };
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setInput({
       ...input,
       [event.target.name]: event.target.value,
     });
   };
 
-  if (activeUser.user.email) {
-    return <Redirect to="/month" />;
-  } else {
+  if (!activeUser.user.email) {
     return (
       <div id="login-wrapper">
         <div>
@@ -89,5 +88,7 @@ export default function Login(props) {
         <Link to="/signup">Sign Up</Link>
       </div>
     );
+  } else {
+    return <Redirect to="/month" />;
   }
 }

@@ -7,17 +7,18 @@ import "./GigList.scss";
 export default function GigList(props) {
   const dataContext = useContext(DataContext);
 
-  console.log(dataContext);
-
   const gigs = dataContext.userGigs;
 
-  console.log(gigs);
   const today = new Date();
 
-  const dateParse = (gigs) => {
+  const sortedGigs = gigs.slice().sort(function (a, b) {
+    return new Date(a.date) - new Date(b.date);
+  });
+
+  const dateParse = (sortedGigs) => {
     const newGigs = [];
 
-    gigs.forEach((gig) => {
+    sortedGigs.forEach((gig) => {
       newGigs.push({
         client: gig.client,
         client_contact: gig.client_contact,
@@ -35,17 +36,12 @@ export default function GigList(props) {
     return newGigs;
   };
 
-  let finalGigs = dateParse(gigs);
-
-  let path = props.location.pathname;
-  console.log(path);
+  let finalGigs = dateParse(sortedGigs);
 
   let getYearlyTotal = (finalGigs) => {
     let output = 0;
 
     for (let i = 0; i < finalGigs.length; i += 1) {
-      console.log(finalGigs[i].date[0]);
-      console.log(finalGigs[i].price);
       if (today.getFullYear() === finalGigs[i].date[0]) {
         output = output + finalGigs[i].price;
       }
@@ -55,7 +51,6 @@ export default function GigList(props) {
 
   let yearlyTotal = getYearlyTotal(finalGigs);
 
-  console.log(finalGigs);
   return (
     <div id="giglist-wrapper">
       <div id="gigs-list-header">

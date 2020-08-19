@@ -9,8 +9,6 @@ import "./EditGig.scss";
 export default function EditGig(props) {
   const dataContext = useContext(DataContext);
 
-  console.log("edit gig data context", dataContext);
-
   const setUserGigs = dataContext.setUserGigs;
 
   const user_id = dataContext.activeUser.user.id;
@@ -42,7 +40,6 @@ export default function EditGig(props) {
   }, [gig_id]);
 
   const handleGigChange = (event) => {
-    console.log(event.target.value);
     setGigInput({
       ...gigInput,
       [event.target.name]: event.target.value,
@@ -51,11 +48,9 @@ export default function EditGig(props) {
 
   const handleGigSubmit = (event) => {
     event.preventDefault();
-    console.log("handle gig submit");
     axios
       .put(`${apiUrl}/users/${user_id}/gigs/${gig_id}`, gigInput)
       .then((res) => {
-        console.log("update res", res);
         setGigInput({
           title: "",
           client: "",
@@ -67,13 +62,11 @@ export default function EditGig(props) {
         });
         const reloadGigs = async () => {
           await axios.get(`${apiUrl}/users/${user_id}/gigs`).then((res) => {
-            console.log("res from RELOAD GIGS", res);
             setUserGigs(res.data);
           });
         };
         reloadGigs();
-      })
-      .catch(console.error);
+      });
 
     props.history.push("/month");
   };
@@ -85,10 +78,8 @@ export default function EditGig(props) {
       .delete(`${apiUrl}/gigs/${gig_id}`)
       .then(props.history.push("/month"))
       .then((res) => {
-        console.log("DELETED GIG");
         const reloadGigs = async () => {
           await axios.get(`${apiUrl}/users/${user_id}/gigs`).then((res) => {
-            console.log("res from RELOAD GIGS", res);
             setUserGigs(res.data);
           });
         };

@@ -57,7 +57,7 @@ export default function GigForm({
         <label>Time:</label>
 
         <input onChange={handleGigChange} name="time" value={gigInput.time} />
-        <input id="submit" type="submit" />
+        <input id="submit" type="submit" value="Save Gig" />
       </form>
     </div>
   );

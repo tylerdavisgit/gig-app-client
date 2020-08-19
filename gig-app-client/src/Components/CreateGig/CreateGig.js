@@ -24,7 +24,6 @@ export default function CreateGig(props) {
   });
 
   const handleGigChange = (event) => {
-    console.log(event.target.value);
     setGigInput({
       ...gigInput,
       [event.target.name]: event.target.value,
@@ -33,11 +32,9 @@ export default function CreateGig(props) {
 
   const handleGigSubmit = (event) => {
     event.preventDefault();
-    console.log("handle gig submit");
     axios
       .post(`${apiUrl}/users/${user_id}/gigs/`, gigInput)
       .then((res) => {
-        console.log("create res", res);
         setGigInput({
           title: "",
           client: "",
@@ -49,7 +46,6 @@ export default function CreateGig(props) {
         });
         const reloadGigs = async () => {
           await axios.get(`${apiUrl}/users/${user_id}/gigs`).then((res) => {
-            console.log("res from RELOAD GIGS", res);
             setUserGigs(res.data);
           });
         };
@@ -63,12 +59,14 @@ export default function CreateGig(props) {
     <div id="edit-gig-wrapper">
       <h1>CREATE GIG</h1>
       <h5>* Indicates a required field</h5>
-      <GigForm
-        gigInput={gigInput}
-        handleGigChange={handleGigChange}
-        handleGigSubmit={handleGigSubmit}
-      />
-      <Link to="/month">Cancel</Link>
+      <div id="create-form-wrapper">
+        <GigForm
+          gigInput={gigInput}
+          handleGigChange={handleGigChange}
+          handleGigSubmit={handleGigSubmit}
+        />
+        <Link to="/month">Cancel</Link>
+      </div>
     </div>
   );
 }

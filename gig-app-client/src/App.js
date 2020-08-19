@@ -20,7 +20,6 @@ function App() {
     await axios
       .get(`${apiUrl}/logged_in`, { withCredentials: true })
       .then((res) => {
-        console.log(res);
         if (
           res.data.logged_in &&
           activeUser.loggedInStatus === "NOT_LOGGED_IN"
@@ -54,11 +53,7 @@ function App() {
     user: {},
   });
 
-  console.log(activeUser);
-
   const [userGigs, setUserGigs] = useState([]);
-
-  console.log("userGigs from app -", userGigs);
 
   return (
     <div className="App">

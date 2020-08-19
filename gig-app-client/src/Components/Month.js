@@ -3,6 +3,16 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
 import { DataContext } from "../App";
+import { keyframes } from "styled-components";
+
+const animateIn = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -16,6 +26,9 @@ const Wrapper = styled.div`
   justify-content: center;
   align-content: center;
   justify-items: center;
+  #small-top {
+    margin-bottom: 0px;
+  }
 `;
 
 const Header = styled.div`
@@ -58,6 +71,8 @@ const CalendarWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: auto;
+  animation-name: ${animateIn};
+  animation-duration: 0.5s;
 `;
 
 const Body = styled.div`
@@ -80,6 +95,8 @@ const Day = styled.div`
   cursor: pointer;
   border: 2px solid lightgray;
   font-size: 14px;
+  animation-name: ${animateIn};
+  animation-duration: 1.5s;
   .days-of-week {
     font-size: 20px;
   }
@@ -121,6 +138,9 @@ const Gig = styled.div`
     display: flex;
     flex-wrap: no-wrap;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -170,11 +190,7 @@ const NextButton = styled.div`
 export default function Month() {
   const dataContext = useContext(DataContext);
 
-  console.log(dataContext);
-
   const gigs = dataContext.userGigs;
-
-  console.log(gigs);
 
   const dateParse = (gigs) => {
     const newGigs = [];
@@ -198,8 +214,6 @@ export default function Month() {
   };
 
   let finalGigs = dateParse(gigs);
-
-  console.log(finalGigs);
 
   const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const leapDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -236,14 +250,11 @@ export default function Month() {
   const getMonthlyTotal = (finalGigs) => {
     let monthlyTotal = 0;
     for (let i = 0; i < finalGigs.length; i += 1) {
-      console.log(finalGigs[i]);
-
       if (
         finalGigs[i].date[0] === date.getFullYear() &&
         finalGigs[i].date[1] === date.getMonth() + 1
       ) {
         monthlyTotal = monthlyTotal + finalGigs[i].price;
-        console.log(monthlyTotal);
       }
     }
     return monthlyTotal;
@@ -263,6 +274,7 @@ export default function Month() {
 
   return (
     <Wrapper>
+      <h5 id="small-top">GIG APP</h5>
       <Header>
         <Link to="/gigs/create_gig">+</Link>
         <div>

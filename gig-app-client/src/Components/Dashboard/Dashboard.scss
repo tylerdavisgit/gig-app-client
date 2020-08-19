@@ -75,6 +75,8 @@
   #dash-year {
     margin-top: 5px;
     margin-bottom: 20px;
+    animation: transitionIn 1.5s;
+
     h2 {
       font-family: futura;
       font-style: italic;
@@ -98,6 +100,8 @@
   #dash-logged {
     display: flex;
     flex-direction: column;
+    animation: transitionIn 1.5s;
+
     h5 {
       margin-top: 5px;
     }
@@ -110,8 +114,9 @@
     background-color: black;
     padding-bottom: 3px;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     font-family: futura;
+    margin-top: 10px;
   }
 }

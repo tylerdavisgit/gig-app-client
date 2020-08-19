@@ -10,8 +10,6 @@ export default function Dashboard(props) {
   const activeUser = dataContext.activeUser.user;
   const setActiveUser = dataContext.setActiveUser;
   let email = activeUser.email;
-  console.log(activeUser);
-  console.log(email);
 
   const today = new Date();
 
@@ -40,14 +38,10 @@ export default function Dashboard(props) {
 
   let finalGigs = dateParse(gigs);
 
-  console.log(finalGigs);
-
   let getYearlyTotal = (finalGigs) => {
     let output = 0;
 
     for (let i = 0; i < finalGigs.length; i += 1) {
-      console.log(finalGigs[i].date[0]);
-      console.log(finalGigs[i].price);
       if (today.getFullYear() === finalGigs[i].date[0]) {
         output = output + finalGigs[i].price;
       }
@@ -61,16 +55,13 @@ export default function Dashboard(props) {
     await axios
       .delete(`${apiUrl}/logout`, { withCredentials: true })
       .then((res) => {
-        console.log("LOGGED OUT");
         setActiveUser({
           loggedInStatus: "NOT_LOGGED_IN",
           user: {},
         });
         props.history.push("/");
       })
-      .catch((error) => {
-        console.log("logout error", error);
-      });
+      .catch((error) => {});
   };
 
   let dateObj = new Date();
@@ -103,7 +94,7 @@ export default function Dashboard(props) {
       <div id="dash-year">
         <h2>Gig Income This Year:</h2>
         <h3>${yearlyTotal}</h3>
-        <Link to="/gigs">View all Gigs</Link>
+        <Link to="/gigs">View All Gigs</Link>
       </div>
 
       <div id="dash-logged">
