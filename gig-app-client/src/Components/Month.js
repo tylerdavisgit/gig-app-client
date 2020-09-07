@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
 import { DataContext } from "../App";
@@ -190,6 +190,9 @@ const NextButton = styled.div`
 export default function Month() {
   const dataContext = useContext(DataContext);
 
+  const activeUser = dataContext.activeUser;
+  const email = activeUser.user.email;
+
   const gigs = dataContext.userGigs;
 
   const dateParse = (gigs) => {
@@ -272,99 +275,103 @@ export default function Month() {
 
   const monthDays = isLeapYear(date.getFullYear()) ? leapDays : days;
 
-  return (
-    <Wrapper>
-      <h5 id="small-top">GIG APP</h5>
-      <Header>
-        <Link to="/gigs/create_gig">+</Link>
-        <div>
-          <div id="header-month">
-            {months[month]} {year}
+  if (!email) {
+    return <Redirect to="/login" />;
+  } else {
+    return (
+      <Wrapper>
+        <h5 id="small-top">GIG APP</h5>
+        <Header>
+          <Link to="/gigs/create_gig">+</Link>
+          <div>
+            <div id="header-month">
+              {months[month]} {year}
+            </div>
+            <div id="gigs">Gigs ${monthlyTotal}</div>
+            <div id="header-year"></div>
           </div>
-          <div id="gigs">Gigs ${monthlyTotal}</div>
-          <div id="header-year"></div>
-        </div>
-        <Link to="/dashboard">
-          <div id="burger">
-            <span className="burger-span" />
-            <span className="burger-span" />
-            <span className="burger-span" />
-          </div>
-        </Link>
-      </Header>
-      <CalendarWrapper>
-        <Body>
-          {daysOfWeek.map((d) => (
-            <Day key={d}>
-              <p className="days-of-week">{d}</p>
-            </Day>
-          ))}
-          {Array(monthDays[month] + startDay)
-            .fill()
-            .map((_, index) => {
-              const d = index - (startDay - 1);
-              const date = new Date(year, month, d);
-              let matchingDatesPrice = [];
-              let matchingDatesTitle = [];
-              let matchingDatesId = [];
-              finalGigs.map((gig) => {
-                if (
-                  gig.date[2] === date.getDate() &&
-                  gig.date[1] === date.getMonth() + 1 &&
-                  gig.date[0] === date.getFullYear()
-                ) {
-                  matchingDatesPrice.push("$" + gig.price);
-                  matchingDatesTitle.push(gig.title);
-                  matchingDatesId.push(gig.id);
-                }
-              });
-              let url = `/gigs/edit_gig/${matchingDatesId}`;
+          <Link to="/dashboard">
+            <div id="burger">
+              <span className="burger-span" />
+              <span className="burger-span" />
+              <span className="burger-span" />
+            </div>
+          </Link>
+        </Header>
+        <CalendarWrapper>
+          <Body>
+            {daysOfWeek.map((d) => (
+              <Day key={d}>
+                <p className="days-of-week">{d}</p>
+              </Day>
+            ))}
+            {Array(monthDays[month] + startDay)
+              .fill()
+              .map((_, index) => {
+                const d = index - (startDay - 1);
+                const date = new Date(year, month, d);
+                let matchingDatesPrice = [];
+                let matchingDatesTitle = [];
+                let matchingDatesId = [];
+                finalGigs.map((gig) => {
+                  if (
+                    gig.date[2] === date.getDate() &&
+                    gig.date[1] === date.getMonth() + 1 &&
+                    gig.date[0] === date.getFullYear()
+                  ) {
+                    matchingDatesPrice.push("$" + gig.price);
+                    matchingDatesTitle.push(gig.title);
+                    matchingDatesId.push(gig.id);
+                  }
+                });
+                let url = `/gigs/edit_gig/${matchingDatesId}`;
 
-              return (
-                <>
-                  <Day key={index} isToday={d === today.getDate()}>
-                    <div className="calendar-nums">
-                      {d > 0 && d < 32 ? d : ""}
+                return (
+                  <>
+                    <Day key={index} isToday={d === today.getDate()}>
+                      <div className="calendar-nums">
+                        {d > 0 && d < 32 ? d : ""}
 
-                      {matchingDatesId ? (
-                        <Link to={url}>
-                          <Gig value={matchingDatesId}>
-                            <div className="gig-title">
-                              {matchingDatesTitle}
-                            </div>
-                            <div className="gig-price">
-                              {matchingDatesPrice}
-                            </div>
-                          </Gig>
-                        </Link>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </Day>
-                </>
-              );
-            })}
-        </Body>
-      </CalendarWrapper>
+                        {matchingDatesId ? (
+                          <Link to={url}>
+                            <Gig value={matchingDatesId}>
+                              <div className="gig-title">
+                                {matchingDatesTitle}
+                              </div>
+                              <div className="gig-price">
+                                {matchingDatesPrice}
+                              </div>
+                            </Gig>
+                          </Link>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </Day>
+                  </>
+                );
+              })}
+          </Body>
+        </CalendarWrapper>
 
-      <Footer>
-        <PrevButton
-          id="prev-month"
-          onClick={() => setDate(new Date(year, month - 1, day))}
-        >
-          <div>-</div>
-        </PrevButton>
+        <Footer>
+          <PrevButton
+            id="prev-month"
+            onClick={() => setDate(new Date(year, month - 1, day))}
+          >
+            <div>-</div>
+          </PrevButton>
 
-        <Link to="/gigs">All Gigs</Link>
+          <Link to="/gigs">All Gigs</Link>
 
-        <NextButton
-          id="next-month"
-          onClick={() => setDate(new Date(year, month + 1, day))}
-        >
-          <div>+</div>
-        </NextButton>
-      </Footer>
-    </Wrapper>
-  );
+          <NextButton
+            id="next-month"
+            onClick={() => setDate(new Date(year, month + 1, day))}
+          >
+            <div>+</div>
+          </NextButton>
+        </Footer>
+      </Wrapper>
+    );
+  }
 }

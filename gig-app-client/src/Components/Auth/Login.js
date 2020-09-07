@@ -55,7 +55,9 @@ export default function Login(props) {
     });
   };
 
-  if (!activeUser.user.email) {
+  if (activeUser.user.email) {
+    return <Redirect to="/month" />;
+  } else {
     return (
       <div id="login-wrapper">
         <div>
@@ -88,7 +90,5 @@ export default function Login(props) {
         <Link to="/signup">Sign Up</Link>
       </div>
     );
-  } else {
-    return <Redirect to="/month" />;
   }
 }
